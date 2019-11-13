@@ -1,0 +1,59 @@
+package modelo;
+
+import java.util.ArrayList;
+import java.util.Stack;
+
+/**
+ *
+ * @author Kendall López Quesada
+ */
+public class Grafo<T> {
+    private ArrayList<Nodo<T>> nodos = new ArrayList<>();
+    private ArrayList<Arco> arcos = new ArrayList<>();
+    
+    public void insertarNodo(T pValue){
+        Nodo<T> nodo = new Nodo<>(pValue);
+        nodos.add(nodo);
+    }
+    
+    public void actualizarArcos() {
+    	arcos = null;
+    	arcos = new ArrayList<>();
+    	for(int contadorNodos = 0; contadorNodos>nodos.size(); contadorNodos++) {
+    		Nodo<T> nodoFuente = nodos.get(contadorNodos);
+    		ArrayList<Nodo<T>> listaArcos = nodoFuente.getArcos();
+    		for(int contadorArcos = 0; contadorArcos>listaArcos.size(); contadorArcos++) {
+    			Nodo<T> nodoDestino = listaArcos.get(contadorArcos);
+    			Arco arco = new Arco(nodoFuente, nodoDestino);
+    			arcos.add(arco);
+    		}
+    	}
+    }
+    
+    public Stack<Nodo<T>> profundidad(){
+        Stack<Nodo<T>> pila = new Stack<Nodo<T>>();
+        Stack<Nodo<T>> resultado = new Stack<Nodo<T>>();
+        pila.push(nodos.get(0));     
+        while(!pila.isEmpty()){
+            Nodo<T> nodo = (Nodo<T>) pila.pop();
+            resultado.push(nodo);
+            nodo.setMarcado(true);
+            for(int contador = 0; contador<nodo.getArcos().size(); contador++){
+                Nodo<T> evaluando = nodo.getArcos().get(contador);
+                if(evaluando.getMarcado()==false){
+                    evaluando.setMarcado(true);
+                    pila.push(evaluando);
+                }
+            }
+        }
+        return resultado;
+    }
+    
+    public ArrayList<Nodo<T>> getNodos(){
+        return nodos;
+    }
+    
+    public ArrayList<Arco> getArcos() {
+        return arcos;
+    }
+}
