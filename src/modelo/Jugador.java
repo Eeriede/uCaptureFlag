@@ -2,15 +2,34 @@ package modelo;
 
 import java.io.Serializable;
 
+import net.SocketClient;
+
 public class Jugador implements Serializable{
 	private String email;
 	private String password;
 	private int puntaje;
+	private SocketClient client;
 	
-	public Jugador(String pEmail, String pPassword) {
+	public Jugador(String pEmail, String pPassword, SocketClient pClient) {
 		setEmail(pEmail);
 		setPassword(pPassword);
 		setPuntaje(0);
+		setClient(pClient);
+	}
+	
+	public Jugador(String pEmail, String pPassword, SocketClient pClient, int pPuntaje) {
+		setEmail(pEmail);
+		setPassword(pPassword);
+		setPuntaje(pPuntaje);
+		setClient(pClient);
+	}
+	
+	public SocketClient getClient() {
+		return client;
+	}
+
+	public void setClient(SocketClient client) {
+		this.client = client;
 	}
 
 	public String getEmail() {

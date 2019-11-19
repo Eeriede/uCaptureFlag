@@ -9,7 +9,8 @@ import java.util.Stack;
  */
 public class Grafo<T> {
     private ArrayList<Nodo<T>> nodos = new ArrayList<>();
-    private ArrayList<Arco> arcos = new ArrayList<>();
+    private ArrayList<Arco<T>> arcos = new ArrayList<>();
+    private ArrayList<Arco<T>> camino = new ArrayList<>();
     
     public void insertarNodo(T pValue){
         Nodo<T> nodo = new Nodo<>(pValue);
@@ -24,7 +25,7 @@ public class Grafo<T> {
     		ArrayList<Nodo<T>> listaArcos = nodoFuente.getArcos();
     		for(int contadorArcos = 0; contadorArcos>listaArcos.size(); contadorArcos++) {
     			Nodo<T> nodoDestino = listaArcos.get(contadorArcos);
-    			Arco arco = new Arco(nodoFuente, nodoDestino);
+    			Arco<T> arco = new Arco<T>(nodoFuente, nodoDestino);
     			arcos.add(arco);
     		}
     	}
@@ -53,7 +54,54 @@ public class Grafo<T> {
         return nodos;
     }
     
-    public ArrayList<Arco> getArcos() {
+    public ArrayList<Arco<T>> getArcos() {
         return arcos;
+    }
+    
+    public ArrayList<Arco<T>> getCamino() {
+        return camino;
+    }
+      
+    public void Floyd(Nodo<T> nodo){
+    	
+    }
+    
+    public void MSTPrim(Nodo<T> pOrigen){
+    	if(pOrigen.getVisitado()) {
+    		return;
+    	}else {
+    		ArrayList<Arco<T>> pesosArcos = buscarArcos(pOrigen);
+    		camino.addAll(pesosArcos);
+    		pOrigen.setVisitado(true);
+    		for(Arco<T> arco : pesosArcos) {
+    			MSTPrim(arco.getFuente());
+    		}
+    	}
+    }
+    
+    public void Dijkstra(Nodo<T> pOrigen){
+    	int contNodos = nodos.size();
+    	
+    }
+    
+  //Usarlo luego de cada recorrido para limpiar las marcas de los mismos
+    public void limpiarMarcasNodos() {
+    	for(Nodo<T> nodo : nodos) {
+    		nodo.setMarcado(false);
+    		nodo.setVisitado(false);
+    	}
+    }
+    
+    private ArrayList<Arco<T>> buscarArcos(Nodo<T> pNodo) {
+    	ArrayList<Arco<T>> pesosArcos = new ArrayList<>();
+    	for(Arco<T> arco : this.arcos) {
+    		if(arco.getFuente().equals(pNodo)) {
+    			if(!arco.getDestino().getMarcado()) {
+    				arco.getDestino().setMarcado(true);
+    				pesosArcos.add(arco);
+    			}
+    		}
+    	}
+    	return pesosArcos;
     }
 }

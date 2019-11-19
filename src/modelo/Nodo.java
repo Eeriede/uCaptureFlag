@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Nodo<T> {
     private T value;
     private boolean marcado = false;
+    private boolean visitado = false;
     private ArrayList<Nodo<T>> arcos = new ArrayList<>();
 
     public Nodo(T pValue){
@@ -25,6 +26,14 @@ public class Nodo<T> {
     
     public void setMarcado(boolean pMarca){
         marcado=pMarca;
+    }
+    
+    public boolean getVisitado(){
+        return visitado;
+    }
+    
+    public void setVisitado(boolean pVisitado){
+        visitado=pVisitado;
     }
 
     public ArrayList<Nodo<T>> getArcos() {
