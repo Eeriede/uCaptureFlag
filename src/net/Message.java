@@ -1,8 +1,13 @@
 package net;
 
+import java.io.Serializable;
+
 import org.json.JSONObject;
 
-public class Message {
+import modelo.Grafo;
+
+public class Message implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int Type;
 	private JSONObject json;
 	private final String TYPE_ID_NAME = "Type";
@@ -70,6 +75,17 @@ public class Message {
 		}
 	}
 	
+	public void addField(String pKey, Grafo<?> pValue) {
+		try 
+		{
+			json.put(pKey, pValue);
+		} 
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
 	public String getValue(String pKey) {
 		String result = "";
 		try 
@@ -114,6 +130,19 @@ public class Message {
 		try 
 		{
 			result = (float)json.get(pKey);
+		} 
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Grafo<?> getGrafoValue(String pKey) {
+		Grafo<?> result = null;
+		try 
+		{
+			result = (Grafo<?>)json.get(pKey);
 		} 
 		catch (Exception ex)
 		{

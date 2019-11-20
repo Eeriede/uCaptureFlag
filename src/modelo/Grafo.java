@@ -80,7 +80,6 @@ public class Grafo<T> {
     }
     
     public void Dijkstra(Nodo<T> pOrigen){
-    	int contNodos = nodos.size();
     	
     }
     

@@ -26,4 +26,6 @@ public interface iConstants {
     public static int ENTRADA_HEIGHT = 20;
     public static int TXT_WIDTH = 48;
     public static int TXT_HEIGHT = 14;
+    
+    public static String LOCAL_HOST = "127.0.0.1";
 }

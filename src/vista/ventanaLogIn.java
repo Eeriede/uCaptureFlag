@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import common.iConstants;
+import modelo.Jugador;
+import net.SocketClient;
 
 import javax.swing.JPasswordField;
 
@@ -20,16 +23,19 @@ public class ventanaLogIn extends JFrame implements ActionListener, iConstants{
 	private JPasswordField passwordField;
 	private JButton botonEntrar;
 	private JButton botonRegistrar;
+	private Jugador player = null;
 	
 	public ventanaLogIn() {
 		this.setBounds(TOP, TOP, VENTANA_WIDTH/3, VENTANA_HEIGHT/3);
 		setTitle("Captura la bandera");
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
+		contentPane.setBackground(Color.BLACK);
 		setContentPane(contentPane);
 		
 		JLabel lblEmail = new JLabel("Email: ");
 		lblEmail.setBounds(VENTANA_ESPACIO_H, VENTANA_ESPACIO_V, TXT_WIDTH, TXT_HEIGHT);
+		lblEmail.setForeground(Color.WHITE);
 		contentPane.add(lblEmail);
 		
 		emailField = new JTextField();
@@ -38,6 +44,7 @@ public class ventanaLogIn extends JFrame implements ActionListener, iConstants{
 
 		JLabel lblPassword = new JLabel("Contraseña: ");
 		lblPassword.setBounds(VENTANA_ESPACIO_H, (VENTANA_ESPACIO_V*3)+TXT_HEIGHT, TXT_WIDTH*2, TXT_HEIGHT);
+		lblPassword.setForeground(Color.WHITE);
 		contentPane.add(lblPassword);
 		
 		passwordField = new JPasswordField();
@@ -64,8 +71,12 @@ public class ventanaLogIn extends JFrame implements ActionListener, iConstants{
 		String password = (passwordField.getPassword()).toString();
 		passwordField.setText("");
 		if(isTextoValido(email)&&isTextoValido(password)) {
+			player = new Jugador(email, password, new SocketClient(LOCAL_HOST));
 			if(botonActual.getText().compareTo("Ingresar")==0) {
-				
+				//usar la funcion de revision
+				ventanaPrincipal juego = new ventanaPrincipal(player);
+				juego.setVisible(true);
+				this.setVisible(false);
 			}else {
 				if(botonActual.getText().compareTo("Registrar")==0) {
 					
