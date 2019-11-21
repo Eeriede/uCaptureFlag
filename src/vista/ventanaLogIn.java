@@ -68,12 +68,15 @@ public class ventanaLogIn extends JFrame implements ActionListener, iConstants{
 		JButton botonActual = (JButton)pEvent.getSource();
 		String email = emailField.getText();
 		emailField.setText("");
-		String password = (passwordField.getPassword()).toString();
+		@SuppressWarnings("deprecation")
+		String password = passwordField.getText();
 		passwordField.setText("");
 		if(isTextoValido(email)&&isTextoValido(password)) {
+			System.out.println(email);
+			System.out.println(password);
 			player = new Jugador(email, password, new SocketClient(LOCAL_HOST));
 			if(botonActual.getText().compareTo("Ingresar")==0) {
-				//usar la funcion de revision
+				//usar la funcion de revision de usuario
 				ventanaPrincipal juego = new ventanaPrincipal(player);
 				juego.setVisible(true);
 				this.setVisible(false);
@@ -90,14 +93,14 @@ public class ventanaLogIn extends JFrame implements ActionListener, iConstants{
 	}
 	
 	private boolean isTextoValido(String pTexto) {
-		if(pTexto=="" || pTexto==" " || pTexto==null) {
+		if(pTexto=="" || pTexto==" " || pTexto==null || pTexto =="\n") {
 			return false;
 		}else {
 			return true;
 		}
 	}
 	
-	private boolean isRegistrado(String pEmail, String pPassword) {
+	/*private boolean isRegistrado(String pEmail, String pPassword) {
 		//pEmail.Ha
-	}
+	}*/
 }

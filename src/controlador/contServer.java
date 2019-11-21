@@ -6,6 +6,7 @@ import java.util.Observer;
 import net.Message;
 import net.SocketClient;
 import modelo.Equipo;
+import modelo.EspacioMapa;
 import modelo.Grafo;
 import modelo.Jugador;
 import net.Server;
@@ -13,12 +14,12 @@ import net.Server;
 public class contServer implements Observer{
 	private Server servidor;
 	private Jugador[] jugadores;
-	private Grafo<Equipo> mapa;
+	private Grafo<EspacioMapa> mapa;
 	
 	public contServer() {
 		servidor = new Server(this);
 		jugadores = new Jugador[2];
-		mapa = new Grafo<Equipo>();
+		mapa = new Grafo<EspacioMapa>();
 	}
 
 	@Override
